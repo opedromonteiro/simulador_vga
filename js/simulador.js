@@ -15,12 +15,14 @@ const colors = [
 ];
 // Array de imageData gerado da imagem fornecida (exemplo)
 // Este array conterá 480 linhas, cada uma com 640 pixels (valores de 0 a 15)
-const imageData = new Array(HEIGHT).fill().map(() =>
-    new Array(WIDTH).fill().map(() => Math.floor(Math.random() * 16))
+function generatedImageData() {
+    return new Array(HEIGHT).fill().map(() =>
+        new Array(WIDTH).fill().map(() => Math.floor(Math.random() * 16))
 )
+}
 
 // Funçao para desenhar a imagem no canvas usando os dados do array
-function drawImagePattern() {
+function drawImagePattern(imageData) {
     for (let y = 0; y < HEIGHT; y++) {
         for (let x = 0; x < WIDTH; x++) {
             const colorIndex = imageData[y][x];
@@ -30,4 +32,9 @@ function drawImagePattern() {
     }
 }
 
-drawImagePattern();
+function animate() {
+    const imageData = generatedImageData();
+    drawImagePattern(imageData);
+    requestAnimationFrame(animate);
+}
+animate();
